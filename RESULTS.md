@@ -8,7 +8,7 @@ The full checks, cleaning rules and remaining concerns are in DATA.md. The main 
 - The two raw files hold 8,518,763 rows. After removing 1,211,048 repeated timestamps, 7,307,715 readings remain. 191,889 timestamps appear in both files, and for those the Part 2 row is kept.
 - The readings are not evenly spaced. About 51% of gaps between readings fall outside 6 to 8 seconds, and 4,040 gaps are longer than 60 seconds. The longest is about 41.6 days.
 - The cleaned data is one-minute averages. Gaps of up to 2 minutes are filled, and longer gaps are left empty and listed in `outputs/req1_outages.csv`.
-`req1_before_after.png` shows the whole house, Appliance 1 and Appliance 5 (the washing machine) for one busy day. The raw readings are grey and the cleaned one-minute averages are blue. [Describe what the cleaning changed: whether negative readings, spikes or gaps are visible in the raw data and removed or filled in the cleaned data.]
+`req1_before_after.png` shows the whole house, Appliance 1 and Appliance 5 (the washing machine) for one busy day. The raw readings are grey and the cleaned one-minute averages are blue.
  
 ## Requirement 2: washing-machine use
  
@@ -29,7 +29,7 @@ From `outputs/req2_house_summary.csv`:
  
 The washer is on for only 1.3% to 5.9% of usable minutes, and off or near zero for the rest. House 2 has the most missing time, including one gap of about 62 days. Houses 1 and 3 share the same longest gap. Each home is compared over the same dates, but House 2 has the least usable data, so its figures rest on less evidence.
  
-House 5 looks different from the other three. Its channel reads exactly zero in only 52.6% of usable minutes, against 94% to 98% elsewhere. It has the most cycles, and its median peak is 494 W, about a quarter of the 1,874 to 2,264 W seen in the other homes. Its channel may not capture the washer in the same way. Check the mapping in `Refit.txt` and the House 5 plots before relying on House 5.
+House 5 looks different from the other three. Its channel reads exactly zero in only 52.6% of usable minutes, against 94% to 98% elsewhere. It has the most cycles, and its median peak is 494 W, about a quarter of the 1,874 to 2,264 W seen in the other homes. Its channel may not capture the washer in the same way.
  
 ### Cycle rule
  
@@ -56,11 +56,6 @@ From `outputs/req2_usage_by_hour.csv` and `outputs/req2_usage_by_day.csv`. Share
  
 These are patterns across four homes. They do not show why households do their laundry at those times.
  
-### Plots
- 
-- **24-hour trace** (`req2_24h_trace.png`): House 5, on the day with the most washer use. The date is in the plot title. [Describe what you see: does the washer run coincide with peaks in the whole-house total?]
-- **One detected cycle** (`req2_one_cycle.png`): House 5, which has the most detected cycles. The cycle shown is the one whose energy is closest to House 5's median of 130 Wh. [Describe the cycle: does it stay joined through its pauses?]
-- **Cross-house comparison** (`req2_cross_house.png`): the plot matches the medians in the table. House 2 has the longest cycles (82 minutes) and the most energy per cycle (504 Wh). House 5 has the shortest (28 minutes) and the least (130 Wh).
 ## Requirement 3: estimating washer power
  
 ### Set-up
@@ -80,10 +75,6 @@ From `outputs/req3_metrics.csv`:
 | Gradient boosting | 24.8 | 130.3 | 244.5 | −19.1 | 0.202 | 0.316 | 0.247 |
  
 Over the test period, the washer used 201.9 kWh. The model estimated 163.4 kWh, and the usage profile estimated 166.7 kWh.
- 
-### Plot
- 
-`req3_actual_vs_predicted.png` shows the House 5 test day with the most washer use. The date is in the plot title. [Does the model follow the start, the length and the peak of the run? Where does it differ from the actual trace?]
  
 ### Failure cases
  
